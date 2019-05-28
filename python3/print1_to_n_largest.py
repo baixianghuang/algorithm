@@ -1,4 +1,4 @@
-def print1ToNLargest(n):
+def print1_to_n_largest(n):
 """
 Big number problem print 1 to the largest n digits
 """
@@ -13,7 +13,7 @@ Big number problem print 1 to the largest n digits
     new_list = L[:]
     while True:
         new_list = add_one_list(new_list, n)
-        printListToNum(new_list)
+        print_list_to_num(new_list)
         list_convet_int = convert_list_to_int(new_list)
         if list_convet_int == 10**n - 1:
             break
@@ -35,7 +35,7 @@ def add_one_list(L, n):
     return result
 
 
-def printListToNum(L):
+def print_list_to_num(L):
     """print the number represented by the list without 0s prefix"""
     is_beginning_0 = True
     for c in L:
@@ -54,4 +54,4 @@ def convert_list_to_int(L):
     return int(list_to_str)
 
 
-print1ToNLargest(6)
+print1_to_n_largest(6)
