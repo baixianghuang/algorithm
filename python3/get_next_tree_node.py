@@ -11,10 +11,6 @@ def get_next(node):
     if node == None: 
         return False
     
-    # if the input node is a left leaf node
-    if not node.left and not node.right and node.father.left == node:
-        return node.father
-    
     # if the input node is a root that has right sub-tree
     if node.right:
         node = node.right
@@ -22,8 +18,8 @@ def get_next(node):
             node = node.left
         return node
 
-    # f the input node is a right leaf node
-    if not node.left and not node.right and node.father.right == node:
+    # f the input node is a leaf node
+    if not node.left and not node.right:
         while node.father:
             if node.father.left == node:
                 return node.father
