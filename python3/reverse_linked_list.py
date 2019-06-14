@@ -39,11 +39,6 @@ def reverse_linked_list(head):
         p_prev = p
         p = p_next
 
-    # test the reversed list
-#    t = reversed_head_node
-#    while t:
-#        print(t.val)
-#        t = t.next
     return reversed_head_node
 
 
