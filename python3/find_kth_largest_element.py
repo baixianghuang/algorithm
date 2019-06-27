@@ -1,39 +1,54 @@
-class Solution:
-    def partition(self, ori_list, start, end):
-        i = start
-        j = end  # must firstly move j
-        pivot = ori_list[start]
+import random
 
-        while i != j:
-            # print('i, j: ', i, j, l[j] < pivot and l[i] > pivot)
-            while ori_list[j] >= pivot and i < j:  # j must move first
-                j -= 1
-            while ori_list[i] <= pivot and i < j:
-                i += 1
 
-            if i < j:
-                ori_list[i], ori_list[j] = ori_list[j], ori_list[i]
+def find_k_th_largest(nums, k):
+    """time complexity restriction: O(n)"""
+    if k < 0 or k > len(nums) or nums == None:
+        return False
 
-        ori_list[i], ori_list[start] = ori_list[start], ori_list[i]
-        # print(ori_list, j)
-        return j
-    
-    def findKthLargest(self, nums, k):
-        """c"""
-        if k < 0 or k > len(nums) or nums == None:
-            return False
-        
-        left = 0
-        right = len(nums) - 1
-        index = self.partition(nums, left, right)
-        while index != len(nums) - k:
-            if len(nums) - k > index:
-                index = self.partition(nums, index+1, right)
-            elif len(nums) - k < index:
-                index = self.partition(nums, left, index-1)
-#        print(nums[index])
-        return nums[index]
-        
-s = Solution()        
-#print(s.partition([3,4,2,1,5,6], 0, 5))
-print(s.findKthLargest([3,2,1,5,6,4], 1))
+    left = 0
+    right = len(nums) - 1
+    index = partition_1(nums, left, right)
+    while index != len(nums) - k:
+        if len(nums) - k > index:
+            index = partition_1(nums, index + 1, right)
+        elif len(nums) - k < index:
+            index = partition_1(nums, left, index - 1)
+    return nums[index]
+
+
+def partition_1(ls, start, end):
+    """前后指针, randomly choose pivot"""
+    border = start
+    rand_i = random.randint(start, end)
+    pivot = ls[rand_i]
+    ls[start], ls[rand_i] = ls[rand_i], ls[start]
+
+    for i in range(start+1, end+1):
+        if ls[i] < pivot and border < len(ls):
+            border += 1
+            ls[border], ls[i] = ls[i], ls[border]
+
+    ls[start], ls[border] = ls[border], ls[start]
+    return border
+
+
+def partition_2(ls, start, end):
+    """左右指针, use leftmost element as pivot"""
+    i = start
+    j = end
+    pivot = ls[start]
+    while i != j:
+        while ls[j] >= pivot and i < j:  # move j firstly
+            j -= 1
+        while ls[i] <= pivot and i < j:
+            i += 1
+        if i < j:
+            ls[i], ls[j] = ls[j], ls[i]
+
+    ls[i], ls[start] = ls[start], ls[i]
+    return j
+
+
+print(find_k_th_largest([3, 2, 1, 5, 6, 4], 1))
+print(find_k_th_largest([3, 2, 1, 5, 6, 4], 6))
