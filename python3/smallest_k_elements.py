@@ -2,7 +2,7 @@ import random
 
 
 def smallest_k_elements(ls, k):
-    """time complexity restriction: O(nlogk)"""
+    """time complexity restriction: O(n), the input list can be modified"""
     if ls == None or k <= 0 or k > len(ls):
         return None
 
@@ -21,7 +21,7 @@ def smallest_k_elements(ls, k):
 
 
 def partition(ls, start, end):
-    """前后指针, randomly choose pivot"""
+    """randomly choose pivot"""
     border = start
     rand_i = random.randint(start, end)
     pivot = ls[rand_i]
@@ -36,4 +36,4 @@ def partition(ls, start, end):
     return border
 
 
-smallest_k_elements([7,1,5,9,3], 3)
+smallest_k_elements([7, 1, 5, 9, 3], 3)
