@@ -1,3 +1,9 @@
+class ListNode:
+    def __init__(self, val):
+        self.val = val
+        self.next = None
+        
+
 def merge_linked_lists_recursively(node1, node2):
     """"merge 2 sorted linked list into a sorted list (ascending)"""
     if node1 == None:
