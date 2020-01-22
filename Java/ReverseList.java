@@ -25,7 +25,7 @@ class ReverseList {
     public ListNode reverseListRecursively(ListNode node) {
         // Time complexity: O(n)
         if (node == null || node.next == null)
-            return null;
+            return node;
         ListNode n = reverseListRecursively(node.next);
         node.next.next = node;
         node.next = null;
