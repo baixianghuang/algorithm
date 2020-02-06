@@ -1,27 +1,28 @@
 class PartitionList {
     public ListNode partitionList(ListNode head, int x) {
         // Time complexity: O(n)
-        // i points to the sublist whose node.val < x,
-        // j points to the sublist whose node.val >= x
         if (head == null) {
             return null;
         }
-        ListNode node = head, iHead = new ListNode(0), jHead = new ListNode(0);
-        ListNode i = iHead, j = jHead;
+        ListNode dummy1 = new ListNode(0), dummy2 = new ListNode(0);
+        ListNode dummyHead1 = dummy1, dummyHead2 = dummy2;
+        ListNode node = head;
         while (node != null) {
             if (node.val < x) {
-                i.next = node;
-                i = i.next;
+                dummy1.next = node;
+                dummy1 = dummy1.next;
             }
             else {
-                j.next = node;
-                j = j.next;
+                dummy2.next = node;
+                dummy2 = dummy2.next;
             }
             node = node.next;
         }
-        j.next = null;  // when j is not the last node, without this line, a list loop may be formed
-        i.next = jHead.next;
-        return iHead.next;
+        // join two dummy sublist
+        dummy1.next = dummyHead2.next;
+        // when dummy2 doesn't point to the last node, a list loop may be formed without this line
+        dummy2.next = null;
+        return dummyHead1.next;
     }
 
     public ListNode partitionListApproach2(ListNode head, int x) {
