@@ -1,5 +1,12 @@
 class RemoveListElements {
-    public ListNode removeListElements(ListNode head, int val) {
+    public ListNode removeElementsRecursively(ListNode root, int val) {
+        if (root == null) { return root; }
+        if (root.val == val) { return removeElements(root.next, val); }
+        root.next = removeElements(root.next, val);
+        return root;
+    } 
+    
+    public ListNode removeListIterativelyElements(ListNode head, int val) {
         // Time Complexity: O(n)
         if (head == null) {
             return null;
@@ -23,7 +30,7 @@ class RemoveListElements {
         return head;
     }
 
-    public ListNode removeListElementsApproach2(ListNode head, int val) {
+    public ListNode removeListElementsIterativelyApproach2(ListNode head, int val) {
         if (head == null) {
             return null;
         }
