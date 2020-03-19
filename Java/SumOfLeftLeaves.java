@@ -1,13 +1,13 @@
 class SumOfLeftLeaves {
     public int sumOfLeftLeavesRecursively(TreeNode root) {
         if (root == null) { return 0; }
-        if (root.left.left == null && root.left.right == null) { return root.left.val; }
-        return sumOfLeftLeavesRecursively(root.left) + sumOfLeftLeavesRecursively(root.right);
+        int sum = 0;
+        if (root.left != null && root.left.left == null && root.left.right == null) { sum = root.left.val; }
+        return sum + sumOfLeftLeavesRecursively(root.left) + sumOfLeftLeavesRecursively(root.right);
     }
 
     public int sumOfLeftLeavesIteratively(TreeNode root) {
-        if (root == null) { return 0; }
-        if (root.left == null && root.right == null) { return root.val; }
+        if (root == null || (root.left == null && root.right == null)) { return 0; }
         Stack<TreeNode> stack = new Stack<>();
         stack.push(root);
         TreeNode parent = null;
