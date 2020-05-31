@@ -1,0 +1,40 @@
+class LongestPalindrome {
+  public String longestPalindrome(String s) {
+        // expand around center
+        if (s == null) { return null; }
+        String ans = "";
+        for (int mid = 0; mid < s.length(); mid++) {
+            String str1 = longestPalindromeHelper(s, mid, mid + 1);
+            String str2 = longestPalindromeHelper(s, mid, mid);
+            String longerStr = str1.length() > str2.length() ? str1 : str2;
+            if (longerStr.length() > ans.length()) {
+                ans = longerStr;
+            }
+        }
+        return ans;
+    }
+
+    private String longestPalindromeHelper(String s, int left, int right) {
+        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+            left--;
+            right++;
+        }
+        return s.substring(left+1, right);
+    }
+
+    public String longestPalindromeApproach2(String s) {
+//        Brute force, Time Limit Exceeded
+        String ans = "";
+        int max = 0;
+        for (int i = 0; i <= s.length(); i++) {
+            for (int j = i; j <= s.length(); j++) {
+                String tempStr = s.substring(i, j);
+                if (isPalindrome(tempStr) && (j - i) > max) {
+                    ans = tempStr;
+                    max = j - i;
+                }
+            }
+        }
+        return ans;
+    }
+}
